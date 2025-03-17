@@ -60,6 +60,7 @@ class NewsListCreateView(generics.ListCreateAPIView):
 
 class NewsRetrieveDeleteView(generics.RetrieveDestroyAPIView):
    
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = News.objects.annotate(total_views=Count('views'))  # Track view count
     serializer_class = NewsSerializer
 
