@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomTokenObtainPairSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 
@@ -39,40 +40,38 @@ class NewsFilter(filters.FilterSet):
 
 # View to list and create news articles with filtering
 class NewsListCreateView(generics.ListCreateAPIView):
-    """
-    Handles both listing news and creating news.
-    - Listing: Available to all users.
-    - Creating: Restricted to admin users only.
-    """
+    authentication_classes = [JWTAuthentication]
     queryset = News.objects.annotate(total_views=Count('views')).order_by('-created_at')
     serializer_class = NewsSerializer
-    filter_backends = [filters.DjangoFilterBackend]  # Enable filtering
-    filterset_class = NewsFilter  # Use the NewsFilter class
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = NewsFilter
+
+    # Set default permissions
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_permissions(self):
-       
+        """Restrict POST requests to admin users."""
         if self.request.method == 'POST':
-            return [IsAdminUser()]  # Only admins can create news
-        return [permissions.IsAuthenticatedOrReadOnly()]  # Read access for others
+            return [IsAdminUser()]
+        return super().get_permissions()  # Keep default permission
+
 
     def perform_create(self, serializer):
         serializer.save()
 
 class NewsRetrieveDeleteView(generics.RetrieveDestroyAPIView):
-   
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = News.objects.annotate(total_views=Count('views'))  # Track view count
     serializer_class = NewsSerializer
 
     def get_permissions(self):
         """
-        Returns different permissions based on the HTTP method:
-        - GET (retrieve): Anyone can read (authenticated or read-only access).
-        - DELETE (destroy): Only admins can delete news.
+        Override to restrict DELETE requests to admin users only.
         """
         if self.request.method == "DELETE":
             return [IsAdminUser()]  # Only admins can delete news
-        return [permissions.IsAuthenticatedOrReadOnly()]  # Read access for others
+        return super().get_permissions()  # Use default permissions for other methods
 
     def retrieve(self, request, *args, **kwargs):
         """
@@ -87,20 +86,9 @@ class NewsRetrieveDeleteView(generics.RetrieveDestroyAPIView):
 
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
-
-
-# View to fetch news articles with infinite scrolling
-class NewsInfiniteScrollView(generics.ListAPIView):
-    serializer_class = NewsSerializer
-    filter_backends = [filters.DjangoFilterBackend]
-    filterset_class = NewsFilter
-
-    def get_queryset(self):
-        offset = int(self.request.query_params.get('offset', 0))
-        limit = 3
-        return News.objects.annotate(total_views=Count('views')).order_by('-created_at')[offset:offset + limit]
     
 class LikeNewsView(APIView):
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, news_id):

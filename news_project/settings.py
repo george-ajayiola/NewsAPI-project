@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1#om)$&9x%#)zc_@p9l6#+^7%5dq3qyg!_iol_=xr&q2bffxi4'
+SECRET_KEY = 'dv91o8dd=2po#6raeax@1w0+@d3y8!8-^!aqy#tvqc)uimzhf#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,6 +32,12 @@ SIMPLE_JWT = {
 }
 
 
+
+
+
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'news',
     'rest_framework',
+    'rest_framework_simplejwt',
     'django_filters',
     'corsheaders',
 ]
@@ -145,4 +152,4 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWS_CREDENTIALS = True
