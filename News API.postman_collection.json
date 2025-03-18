@@ -16,7 +16,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{BASE_URL}}/api/news",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"news"
+							]
 						},
 						"description": "Get all thr news articles"
 					},
@@ -27,85 +34,23 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"description": "Filters news by Tag"
-					},
-					"response": []
-				},
-				{
-					"name": "Create News",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{vault:authorization-secret}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\":  \"Breaking News: Tinubu has died\",\r\n    \"text\": \"Na so we see am  oo\",\r\n    \"pictures\": \"https://res.cloudinary.com/ds4etrhms/image/upload/c_thumb,w_200,g_face/v1742170557/samples/people/jazz.jpg\"\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://127.0.0.1:8001/api/news",
-							"protocol": "http",
+							"raw": "{{BASE_URL}}/api/news?tags=Politics",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{BASE_URL}}"
 							],
-							"port": "8001",
 							"path": [
 								"api",
 								"news"
-							]
-						},
-						"description": "Create a news Item, only admin can do this"
-					},
-					"response": []
-				},
-				{
-					"name": "News Item",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+							],
+							"query": [
 								{
-									"key": "token",
-									"value": "{{vault:authorization-secret}}",
-									"type": "string"
+									"key": "tags",
+									"value": "Politics"
 								}
 							]
 						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8001/api/news/2",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8001",
-							"path": [
-								"api",
-								"news",
-								"2"
-							]
-						},
-						"description": "Get a Specific News item"
+						"description": "Filters news by Tag"
 					},
 					"response": []
 				},
@@ -125,15 +70,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8001/api/news/2",
-							"protocol": "http",
+							"raw": "{{BASE_URL}}/api/news/2",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{BASE_URL}}"
 							],
-							"port": "8001",
 							"path": [
 								"api",
 								"news",
@@ -169,21 +109,53 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8001/api/news/1/like/",
-							"protocol": "http",
+							"raw": "{{BASE_URL}}/api/news/1/like/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{BASE_URL}}"
 							],
-							"port": "8001",
 							"path": [
 								"api",
 								"news",
 								"1",
 								"like",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateNews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{vault:authorization-secret}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"AI tools can now turn images to videos\",\r\n    \"text\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \",\r\n    \"pictures\": \"https://res.cloudinary.com/ds4etrhms/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1742170558/samples/imagecon-group.jpg\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/news",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"news"
 							]
 						}
 					},
@@ -210,15 +182,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8001/api/user/register/",
-							"protocol": "http",
+							"raw": "{{BASE_URL}}/api/user/register/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{BASE_URL}}"
 							],
-							"port": "8001",
 							"path": [
 								"api",
 								"user",
@@ -237,7 +204,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"\",\r\n    \"password\": \"\"\r\n}",
+							"raw": "{\r\n    \"username\": \"presh03\",\r\n    \"password\": \"Drex2003.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -245,15 +212,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8001/api/token/",
-							"protocol": "http",
+							"raw": "{{BASE_URL}}/api/token/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{BASE_URL}}"
 							],
-							"port": "8001",
 							"path": [
 								"api",
 								"token",
