@@ -69,8 +69,3 @@ class LikeSerializer(serializers.ModelSerializer):
 
         
 
-# Serializer for View model
-class ViewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = View
-        fields = ['id', 'news', 'user', 'viewed_at']
