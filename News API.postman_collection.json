@@ -32,6 +32,16 @@
 				{
 					"name": "News by   ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{vault:authorization-secret}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -194,7 +204,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"\",\r\n    \"first_name\": \"\",\r\n    \"last_name\": \"\",\r\n    \"password\": \"\"\r\n}",
+							"raw": "{\r\n    \"username\": \"dan\",\r\n    \"first_name\": \"Daniel\",\r\n    \"last_name\": \"Ajaka\",\r\n    \"password\": \"drex2003.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -224,7 +234,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"presh03\",\r\n    \"password\": \"Drex2003.\"\r\n}",
+							"raw": "{\r\n    \"username\": \"dan\",\r\n    \"password\": \"drex2003.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
