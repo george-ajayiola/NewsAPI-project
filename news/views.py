@@ -28,15 +28,16 @@ class CreateUserView(generics.CreateAPIView):
 
 # Filter class for News
 class NewsFilter(filters.FilterSet):
-    tags = filters.ModelMultipleChoiceFilter(
-        field_name='tags__name',  # Filter by tag names
+    tag = filters.ModelChoiceFilter(
+        field_name='tags__name',  # Filter by a single tag name
         to_field_name='name',     # Match tags by their name
         queryset=Tag.objects.all()
     )
 
     class Meta:
         model = News
-        fields = ['tags']  # Add more fields if needed
+        fields = ['tag']
+ 
 
 # View to list and create news articles with filtering
 class NewsListCreateView(generics.ListCreateAPIView):
