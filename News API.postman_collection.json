@@ -30,6 +30,26 @@
 					"response": []
 				},
 				{
+					"name": "News by   ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/api/news/{{id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"news",
+								"{{id}}"
+							]
+						},
+						"description": "Get all thr news articles"
+					},
+					"response": []
+				},
+				{
 					"name": "News by Tag",
 					"request": {
 						"method": "GET",

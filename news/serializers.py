@@ -54,9 +54,20 @@ class NewsSerializer(serializers.ModelSerializer):
 
 # Serializer for Like model
 class LikeSerializer(serializers.ModelSerializer):
+    like_count = serializers.SerializerMethodField()
+    dislike_count = serializers.SerializerMethodField()
+
     class Meta:
         model = Like
-        fields = ['id', 'user', 'news', 'like']
+        fields = ['id', 'user', 'news', 'like', 'like_count', 'dislike_count']
+
+    def get_like_count(self, obj):
+        return Like.objects.filter(news=obj.news, like=True).count()
+
+    def get_dislike_count(self, obj):
+        return Like.objects.filter(news=obj.news, like=False).count()
+
+        
 
 # Serializer for View model
 class ViewSerializer(serializers.ModelSerializer):
